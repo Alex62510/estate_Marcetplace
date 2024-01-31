@@ -22,14 +22,14 @@ const app = express()
 // res.sendFile(path.join(__dirname,'JWT_Project','dist','index.html'))
 // })
 //
-// app.use(express.json())
+app.use(express.json())
 // app.use(cookieParser())
 app.listen(3000, () => {
     console.log('server run on port 3000')
 })
 
-// app.use("/api/user", userRoutes)
-// app.use("/api/auth", authRoutes)
+app.use("/api/user", userRoutes)
+app.use("/api/auth", authRoutes)
 
 
 // app.use((err, req, res, next) => {

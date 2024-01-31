@@ -1,8 +1,8 @@
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../redux/store.ts";
+import {RootState} from "../redux/store";
 import {ChangeEvent, FormEvent, useEffect, useRef, useState} from "react";
 import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
-import {app} from "../firebase.ts";
+import {app} from "../firebase";
 import {
     deleteUserFailure,
     deleteUserStart, deleteUserSuccess,
@@ -10,7 +10,7 @@ import {
     updateUserStart,
     updateUserSuccess,
     signOut
-} from "../redux/user/userSlice.tsx";
+} from "../redux/user/userSlice";
 
 
 interface FormData {
@@ -51,6 +51,7 @@ export const Profile = () => {
                 },
                 (error) => {
                     setImageError(true)
+                    console.log(error)
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref)

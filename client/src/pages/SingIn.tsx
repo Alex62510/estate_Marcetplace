@@ -1,9 +1,9 @@
 import {Link, useNavigate} from "react-router-dom";
 import {ChangeEvent, FormEvent, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "../redux/store.ts";
-import {signInFailure, signInStart, signInSuccess} from "../redux/user/userSlice.tsx";
-import {OAuth} from "../components/OAuth.tsx";
+import {AppDispatch, RootState} from "../redux/store";
+import {signInFailure, signInStart, signInSuccess} from "../redux/user/userSlice";
+import {OAuth} from "../components/OAuth";
 
 export const SignIn = () => {
         const [formData, setFormData] = useState({})

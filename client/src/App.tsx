@@ -1,11 +1,11 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {Home} from "./pages/Home.tsx";
-import {About} from "./pages/About.tsx";
-import {Profile} from "./pages/Profile.tsx";
-import {Header} from "./components/Header.tsx";
-import {SignIn} from "./pages/SingIn.tsx";
-import {SignUp} from "./pages/SingUp.tsx";
-import {PrivateRoute} from "./components/PrivateRoute.tsx";
+import {Home} from "./pages/Home";
+import {About} from "./pages/About";
+import {Profile} from "./pages/Profile";
+import {Header} from "./components/Header";
+import {SignIn} from "./pages/SingIn";
+import {SignUp} from "./pages/SingUp";
+import {PrivateRoute} from "./components/PrivateRoute";
 
 
 function App() {
