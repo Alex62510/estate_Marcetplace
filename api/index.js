@@ -13,30 +13,31 @@ mongoose.connect(process.env.MONGO).then(() => {
     console.log(e)
 })
 
-const __dirname=path.resolve()
+// const __dirname=path.resolve()
 
 const app = express()
 
-app.use(express.static(path.join(__dirname,'/JWT_Project/dist')))
-app.get('*',(req,res)=>{
-res.sendFile(path.join(__dirname,'JWT_Project','dist','index.html'))
-})
-
-app.use(express.json())
-app.use(cookieParser())
+// app.use(express.static(path.join(__dirname,'/JWT_Project/dist')))
+// app.get('*',(req,res)=>{
+// res.sendFile(path.join(__dirname,'JWT_Project','dist','index.html'))
+// })
+//
+// app.use(express.json())
+// app.use(cookieParser())
 app.listen(3000, () => {
     console.log('server run on port 3000')
 })
-app.use("/api/user", userRoutes)
-app.use("/api/auth", authRoutes)
+
+// app.use("/api/user", userRoutes)
+// app.use("/api/auth", authRoutes)
 
 
-app.use((err, req, res, next) => {
-    const statusCode = err.statusCode || 500;
-    const message = err.message || 'Internal server error';
-    return res.status(statusCode).json({
-        success: false,
-        message,
-        statusCode
-    })
-})
+// app.use((err, req, res, next) => {
+//     const statusCode = err.statusCode || 500;
+//     const message = err.message || 'Internal server error';
+//     return res.status(statusCode).json({
+//         success: false,
+//         message,
+//         statusCode
+//     })
+// })
