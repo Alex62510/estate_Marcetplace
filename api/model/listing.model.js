@@ -1,10 +1,9 @@
 import mongoose from 'mongoose'
 
-const  listingSchema=new mongoose.Schema(
-    {
-        name:{
-            type:String,
-            required:true,
+const listingSchema = new mongoose.Schema({
+        name: {
+            type: String,
+            required: true,
         },
         description:{
             type:String,
@@ -54,7 +53,7 @@ const  listingSchema=new mongoose.Schema(
             type:String,
             required:true,
         },
-    },{timestamps:true}
+    }, {timestamps: true}
 )
-const Listing =mongoose.model('Listing', listingSchema)
+const Listing = mongoose.model('Listing', listingSchema)
 export default Listing

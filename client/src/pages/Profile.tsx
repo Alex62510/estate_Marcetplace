@@ -12,6 +12,7 @@ import {
   updateUserSuccess,
   signOut,
 } from '../redux/user/userSlice';
+import { Link } from 'react-router-dom';
 
 interface FormData {
   profilePicture?: string;
@@ -161,7 +162,7 @@ export const Profile = () => {
           defaultValue={currentUser ? currentUser.username : ''}
           id={'username'}
           placeholder={'Username'}
-          className={'bg-slate-100 rounded-lg p-3'}
+          className={'border bg-slate-50 rounded-lg p-3'}
           onChange={handleChange}
         />
         <input
@@ -169,14 +170,14 @@ export const Profile = () => {
           defaultValue={currentUser ? currentUser.email : ''}
           id={'email'}
           placeholder={'Email'}
-          className={'bg-slate-100 rounded-lg p-3'}
+          className={'border bg-slate-50 rounded-lg p-3'}
           onChange={handleChange}
         />
         <input
           type="password"
           id={'password'}
           placeholder={'Password'}
-          className={'bg-slate-100 rounded-lg p-3'}
+          className={'border bg-slate-50 rounded-lg p-3'}
           onChange={handleChange}
         />
         <button
@@ -186,6 +187,14 @@ export const Profile = () => {
         >
           {loading ? 'Loading...' : 'Update'}
         </button>
+        <Link
+          to={'/create-listing'}
+          className={
+            'bg-indigo-800 text-white p-3 rounded-lg uppercase hover:opacity-80 text-center'
+          }
+        >
+          Listing
+        </Link>
       </form>
       <div className={'flex justify-between mt-5'}>
         <span className={'text-red-700 cursor-pointer'} onClick={handleDeleteAccount}>
