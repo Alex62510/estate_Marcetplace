@@ -9,7 +9,7 @@ export const signup = async (req, res, next) => {
     const newUser = new User({username, email, password: hashedPassword})
     try {
         await newUser.save()
-        res.status(201).json({message: "User create successfully"})
+        res.status(201).json( "User create successfully")
     } catch (error) {
         next(error)
     }
@@ -52,7 +52,7 @@ export const google = async (req, res, next) => {
                 username: req.body.name.split(" ").join("").toLowerCase() + Math.floor(Math.random()*10000).toString(),
                 email: req.body.email,
                 password: hashedPassword,
-                profilePicture: req.body.photo
+                avatar: req.body.photo
             })
             await newUser.save()
             const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET)

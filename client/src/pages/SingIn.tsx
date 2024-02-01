@@ -47,14 +47,14 @@ export const SignIn = () => {
           type="text"
           placeholder={'Email'}
           id={'email'}
-          className={'bg-slate-100 p-3 rounded-lg'}
+          className={'border bg-slate-50 p-3 rounded-lg'}
           onChange={handleChange}
         />
         <input
           type="password"
           placeholder={'Password'}
           id={'password'}
-          className={'bg-slate-100 p-3 rounded-lg'}
+          className={'border bg-slate-50 p-3 rounded-lg'}
           onChange={handleChange}
         />
         <button
