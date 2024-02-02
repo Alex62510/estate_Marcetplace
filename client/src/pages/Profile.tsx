@@ -162,7 +162,7 @@ export const Profile = () => {
           defaultValue={currentUser ? currentUser.username : ''}
           id={'username'}
           placeholder={'Username'}
-          className={'border bg-slate-50 rounded-lg p-3'}
+          className={'border  rounded-lg p-3'}
           onChange={handleChange}
         />
         <input
@@ -170,14 +170,14 @@ export const Profile = () => {
           defaultValue={currentUser ? currentUser.email : ''}
           id={'email'}
           placeholder={'Email'}
-          className={'border bg-slate-50 rounded-lg p-3'}
+          className={'border  rounded-lg p-3'}
           onChange={handleChange}
         />
         <input
           type="password"
           id={'password'}
           placeholder={'Password'}
-          className={'border bg-slate-50 rounded-lg p-3'}
+          className={'border  rounded-lg p-3'}
           onChange={handleChange}
         />
         <button
