@@ -3,6 +3,7 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/
 import { app } from '../firebase';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import { useNavigate } from 'react-router-dom';
 
 type FormDataType = {
   imageUrls: string[];
@@ -19,6 +20,8 @@ type FormDataType = {
   furnished: boolean;
 };
 export const CreateListing = () => {
+  const { currentUser } = useSelector((state: RootState) => state.user) || {};
+  const navigate = useNavigate();
   const [files, setFiles] = useState<File[]>([]);
   const [formData, setFormData] = useState<FormDataType>({
     imageUrls: [],
@@ -29,16 +32,15 @@ export const CreateListing = () => {
     bedrooms: 1,
     bathrooms: 1,
     regularPrice: 50,
-    discountPrice: 50,
+    discountPrice: 0,
     offer: false,
     parking: false,
     furnished: false,
   });
   const [imageUpError, setImageUpError] = useState<string | boolean>(false);
   const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | boolean>(false);
   const [loading, setLoading] = useState(false);
-  const currentUser = useSelector((state: RootState) => state.user);
 
   const handleSaveFiles = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files;
@@ -121,20 +123,26 @@ export const CreateListing = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      if (formData.imageUrls.length < 1)
+        return setError('You must upload at least one image');
+      if (+formData.regularPrice < +formData.discountPrice)
+        return setError('Discount price must be lower  than regular price');
       setLoading(true);
       setError(false);
+      const userRef = currentUser ? currentUser._id : null;
       const res = await fetch('/api/listing/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...formData, userRef: currentUser._id }),
+        body: JSON.stringify({ ...formData, userRef }),
       });
       const data = await res.json();
       setLoading(false);
       if (data.success == false) {
         setError(data.message);
       }
+      navigate(`/listing/${data._id}`);
     } catch (err) {
       setError(err.massage);
       setLoading(false);
@@ -269,22 +277,24 @@ export const CreateListing = () => {
                 <span className={'text-xs'}>($ /month)</span>
               </div>
             </div>
-            <div className={'flex items-center gap-2'}>
-              <input
-                type="number"
-                id={'discountPrice'}
-                minLength={50}
-                maxLength={1000000}
-                required
-                className={'p-3 border border-gray-300 rounded-lg w-1/3'}
-                onChange={handleChange}
-                value={formData.discountPrice}
-              />
-              <div className={'flex flex-col items-center'}>
-                <p>Discounted price</p>
-                <span className={'text-xs'}>($ /month)</span>
+            {formData.offer && (
+              <div className={'flex items-center gap-2'}>
+                <input
+                  type="number"
+                  id={'discountPrice'}
+                  minLength={0}
+                  maxLength={1000000}
+                  required
+                  className={'p-3 border border-gray-300 rounded-lg w-1/3'}
+                  onChange={handleChange}
+                  value={formData.discountPrice}
+                />
+                <div className={'flex flex-col items-center'}>
+                  <p>Discounted price</p>
+                  <span className={'text-xs'}>($ /month)</span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
         <div className={'flex flex-col flex-1 gap-4'}>
@@ -333,6 +343,7 @@ export const CreateListing = () => {
               </div>
             ))}
           <button
+            disabled={loading || uploading}
             className={
               'p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-80 disabled:opacity-70'
             }
