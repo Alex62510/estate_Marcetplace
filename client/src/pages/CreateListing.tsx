@@ -144,7 +144,11 @@ export const CreateListing = () => {
       }
       navigate(`/listing/${data._id}`);
     } catch (err) {
-      setError(err.massage);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
       setLoading(false);
     }
   };
