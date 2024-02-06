@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
 
-type FormDataType = {
+export type FormDataType = {
   imageUrls: string[];
   name: string;
   description: string;
@@ -40,7 +40,7 @@ export const CreateListing = () => {
   const [imageUpError, setImageUpError] = useState<string | boolean>(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | boolean>(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSaveFiles = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files;
