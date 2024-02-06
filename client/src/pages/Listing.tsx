@@ -8,7 +8,6 @@ import {
   FaBath,
   FaBed,
   FaChair,
-  FaMapMarkedAlt,
   FaMapMarkerAlt,
   FaParking,
   FaShare,
@@ -16,6 +15,7 @@ import {
 import { ListingType } from '../types/type';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import { Contact } from '../components/Contact';
 
 export const Listing = () => {
   SwiperCore.use([Navigation]);
@@ -47,7 +47,6 @@ export const Listing = () => {
     };
     fetchData();
   }, [params.listingId]);
-  console.log(listing);
 
   return (
     <main>
@@ -138,12 +137,12 @@ export const Listing = () => {
             {currentUser && listing.userRef !== currentUser._id && !contact && (
               <button
                 onClick={() => setContact(true)}
-                className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
+                className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-80 p-3"
               >
                 Contact landlord
               </button>
             )}
-            {/*{contact && <Contact listing={listing} />}*/}
+            {contact && <Contact listing={listing} />}
           </div>
         </div>
       )}

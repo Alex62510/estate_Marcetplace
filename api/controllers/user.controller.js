@@ -26,9 +26,9 @@ export const updateUser = async (req, res, next) => {
                     profilePicture: req.body.profilePicture,
                 }
             },
-        {new:true}
+            {new: true}
         )
-        const {password, ...rest}=updatedUser._doc
+        const {password, ...rest} = updatedUser._doc
         res.status(200).json(rest)
     } catch (e) {
         next(e)
@@ -46,15 +46,27 @@ export const deleteUser = async (req, res, next) => {
     }
 
 }
-export const getUserListing=async (req,res,next)=>{
-    if(req.user.id===req.params.id){
-try {
-    const listings=await Listing.find({userRef: req.params.id})
-    res.status(200).json(listings)
-}catch (e) {
-    
+export const getUserListing = async (req, res, next) => {
+    if (req.user.id === req.params.id) {
+        try {
+            const listings = await Listing.find({userRef: req.params.id})
+            res.status(200).json(listings)
+        } catch (e) {
+
+        }
+    } else {
+        return next(errorHandler(401, 'You can only view your own listings!'))
+    }
 }
-    }else {
-        return next(errorHandler(401,'You can only view your own listings!'))
+export const getUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id)
+        if (!user) {
+            return next(errorHandler(404, 'User not found!'));
+        }
+        const {password, ...rest} = user._doc
+        res.status(200).json(rest)
+    } catch (e) {
+        next(e)
     }
 }
