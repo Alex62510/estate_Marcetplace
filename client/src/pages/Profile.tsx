@@ -13,30 +13,7 @@ import {
   signOut,
 } from '../redux/user/userSlice';
 import { Link } from 'react-router-dom';
-
-interface Listing {
-  _id: string;
-  imageUrls: string[];
-  name: string;
-  description: string;
-  address: string;
-  regularPrice: number;
-  discountPrice: number;
-  bathrooms: number;
-  bedrooms: number;
-  furnished: boolean;
-  parking: boolean;
-  type: string;
-  offer: boolean;
-  userRef: string;
-  createdAt: number;
-  updatedAt: number;
-  __v: number;
-}
-
-interface FormData {
-  profilePicture?: string;
-}
+import { FormData, ListingType } from '../types/type';
 
 export const Profile = () => {
   const { currentUser, loading, error } = useSelector((state: RootState) => state.user);
@@ -49,7 +26,7 @@ export const Profile = () => {
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [showListingsError, setShowListingsError] = useState(false);
   const [loadingListing, setLoadingListing] = useState(false);
-  const [userListings, setUserListings] = useState<Listing[]>([]);
+  const [userListings, setUserListings] = useState<ListingType[]>([]);
 
   const handleSaveImage = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.files && setImage(e.target.files[0]);
