@@ -36,9 +36,9 @@ export const Search = () => {
       setSideBarData({
         searchTerm: searchTermFromUrl || '',
         type: typeFromUrl || 'all',
-        parking: parkingFromUrl === 'true' ? true : false,
-        furnished: furnishedFromUrl === 'true' ? true : false,
-        offer: offerFromUrl === 'true' ? true : false,
+        parking: parkingFromUrl === 'true',
+        furnished: furnishedFromUrl === 'true',
+        offer: offerFromUrl === 'true',
         sort: sortFromUrl || 'created_at',
         order: orderFromUrl || 'desc',
       });
@@ -69,7 +69,7 @@ export const Search = () => {
       const checked = (e.target as HTMLInputElement).checked;
       setSideBarData({
         ...sideBarData,
-        [e.target.id]: checked || e.target.value === 'true' ? true : false,
+        [e.target.id]: checked || e.target.value === 'true',
       });
     }
     if (e.target.id === 'sort_order') {
@@ -192,7 +192,7 @@ export const Search = () => {
               'bg-slate-700 p-3 text-white rounded-lg uppercase hover:opacity-80'
             }
           >
-            Search
+            {loading ? 'Search...' : 'Search'}
           </button>
         </form>
       </div>
