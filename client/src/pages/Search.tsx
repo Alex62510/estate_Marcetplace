@@ -7,6 +7,7 @@ export const Search = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState<ListingType[]>([]);
+  const [showMore, setShowMore] = useState(false);
   const [sideBarData, setSideBarData] = useState({
     searchTerm: '',
     type: 'all',
@@ -48,9 +49,15 @@ export const Search = () => {
     const fetchListings = async () => {
       try {
         setLoading(true);
+        setShowMore(false);
         const searchQuery = urlParams.toString();
         const res = await fetch(`/api/listing/get?${searchQuery}`);
         const data = await res.json();
+        if (data.length > 8) {
+          setShowMore(true);
+        } else {
+          setShowMore(false);
+        }
         setListings(data);
         setLoading(false);
       } catch (e) {
@@ -97,6 +104,19 @@ export const Search = () => {
     urlParams.set('order', sideBarData.order);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
+  };
+
+  const onShowMoreClick = async () => {
+    const startIndex = listings.length;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set('startIndex', startIndex.toString());
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/get?${searchQuery}`);
+    const data = await res.json();
+    if (data.length < 9) {
+      setShowMore(false);
+    }
+    setListings([...listings, ...data]);
   };
   console.log(listings);
   return (
@@ -217,6 +237,14 @@ export const Search = () => {
           {!loading &&
             listings &&
             listings.map(listing => <ListingItems key={listing._id} listing={listing} />)}
+          {showMore && (
+            <button
+              className={'text-green-700 hover:underline p-7 text-center w-full'}
+              onClick={onShowMoreClick}
+            >
+              Show more
+            </button>
+          )}
         </div>
       </div>
     </div>
