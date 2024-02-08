@@ -70,7 +70,7 @@ export const Search = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     if (e.target.id === 'all' || e.target.id === 'rent' || e.target.id === 'sale') {
-      setSideBarData({ ...sideBarData, type: e.target.value });
+      setSideBarData({ ...sideBarData, type: e.target.id });
     }
     if (e.target.id === 'searchTerm') {
       setSideBarData({ ...sideBarData, searchTerm: e.target.value });
@@ -239,7 +239,7 @@ export const Search = () => {
             listings.map(listing => <ListingItems key={listing._id} listing={listing} />)}
           {showMore && (
             <button
-              className={'text-green-700 hover:underline p-7 text-center w-full'}
+              className={'text-green-700 text-xl hover:underline p-7 text-center w-full'}
               onClick={onShowMoreClick}
             >
               Show more
