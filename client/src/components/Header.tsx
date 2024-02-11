@@ -68,7 +68,9 @@ export const Header = () => {
                 alt={'profile'}
               />
             ) : (
-              <li className={'hidden sm:inline text-slate-700 hover:text-white'}>
+              <li
+                className={'text-sm sm:text-base inline text-slate-700 hover:text-white'}
+              >
                 Sing In
               </li>
             )}
